@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Inertia\Inertia;
 
 class LocationController extends Controller
@@ -11,7 +12,7 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,9 +22,24 @@ class LocationController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $request->user()->locations()->create($validated);
+        return redirect(route('locations.index'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -31,21 +47,10 @@ class LocationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param Location $location
+     * @return Response
      */
     public function show(Location $location)
     {
@@ -55,8 +60,8 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param Location $location
+     * @return Response
      */
     public function edit(Location $location)
     {
@@ -66,9 +71,9 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Location $location
+     * @return Response
      */
     public function update(Request $request, Location $location)
     {
@@ -78,8 +83,8 @@ class LocationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param Location $location
+     * @return Response
      */
     public function destroy(Location $location)
     {
