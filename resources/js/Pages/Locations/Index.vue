@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Location from '@/Components/Location.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm, Head } from '@inertiajs/inertia-vue3';
@@ -36,6 +37,4 @@ const form = useForm({
 
         </div>
     </AuthenticatedLayout>
-
-
 </template>
