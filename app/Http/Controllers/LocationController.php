@@ -17,7 +17,7 @@ class LocationController extends Controller
     public function index()
     {
         return Inertia::render('Locations/Index', [
-            //
+            'locations' => Location::with('user:id,name')->latest()->get(),
         ]);
     }
 
@@ -32,7 +32,9 @@ class LocationController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
+
         $request->user()->locations()->create($validated);
+
         return redirect(route('locations.index'));
     }
 
