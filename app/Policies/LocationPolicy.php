@@ -65,7 +65,7 @@ class LocationPolicy
      */
     public function delete(User $user, Location $location)
     {
-        //
+        return $this->update($user, $location);
     }
 
     /**

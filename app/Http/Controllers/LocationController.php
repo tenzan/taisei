@@ -98,6 +98,10 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        $this->authorize('delete', $location);
+
+        $location->delete();
+
+        return redirect(route('locations.index'));
     }
 }
