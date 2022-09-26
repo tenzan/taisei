@@ -79,7 +79,15 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        //
+        $this->authorize('update', $location);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $location->update($validated);
+
+        return redirect(route('locations.index'));
     }
 
     /**
